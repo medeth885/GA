@@ -7,6 +7,7 @@ import { useEnergySystemStore } from '@/store/energySystemStore';
 import { useState, useEffect } from 'react';
 import { LEDTextDisplay } from '@/components/ui/LEDTextDisplay';
 import { useTheme } from '@/hooks/useTheme';
+import { SimpleThemeToggle } from '@/components/ui/theme-toggle';
 
 interface PremiumHeaderProps {
   scrolled: boolean;
@@ -116,6 +117,16 @@ export default function PremiumHeader({ scrolled }: PremiumHeaderProps) {
                 <LEDTextDisplay messages={tickerMessages} />
               </motion.div>
             </div>
+
+            {/* Theme Toggle */}
+            <motion.div
+              className="flex items-center"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <SimpleThemeToggle />
+            </motion.div>
           </div>
 
           {/* Mobile LED Text Display */}

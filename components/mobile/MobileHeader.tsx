@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { useTheme } from "@/hooks/useTheme"
+import { SimpleThemeToggle } from "@/components/ui/theme-toggle"
 
 export function MobileHeader() {
   const { isDark } = useTheme()
@@ -12,7 +13,7 @@ export function MobileHeader() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.1 }}
-      className="relative z-20 flex justify-center items-center pt-3 pb-1 h-16"
+      className="relative z-20 flex justify-between items-center pt-3 pb-1 h-16 px-4"
     >
       <div className="flex items-center gap-2">
         <motion.div className="logo-container relative" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -41,6 +42,16 @@ export function MobileHeader() {
           </motion.div>
         </div>
       </div>
+
+      {/* Theme Toggle */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="flex items-center"
+      >
+        <SimpleThemeToggle />
+      </motion.div>
     </motion.div>
   )
 }
