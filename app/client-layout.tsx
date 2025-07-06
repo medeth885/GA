@@ -38,7 +38,7 @@ export default function ClientLayout({
   }, [])
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={false}>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
       {children}
     </ThemeProvider>
   )

@@ -1,44 +1,51 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useTheme as useNextThemes } from "next-themes"
+import { useEffect, useState } from "react"
 
 interface UseThemeReturn {
   isDark: boolean
   isLight: boolean
-  theme: "light" | "dark"
+  theme: string | undefined
   toggleTheme: () => void
+  setTheme: (theme: string) => void
+  resolvedTheme: string | undefined
 }
 
 export function useTheme(): UseThemeReturn {
-  const [theme, setTheme] = useState<"light" | "dark">("dark")
+  const { theme, setTheme, resolvedTheme } = useNextThemes()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    // Check system preference or localStorage
-    const savedTheme = localStorage.getItem("theme")
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-
-    if (savedTheme) {
-      setTheme(savedTheme as "light" | "dark")
-    } else if (systemPrefersDark) {
-      setTheme("dark")
-    } else {
-      setTheme("light")
-    }
+    setMounted(true)
   }, [])
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark")
-    localStorage.setItem("theme", theme)
-  }, [theme])
-
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"))
+    if (resolvedTheme === "dark") {
+      setTheme("light")
+    } else {
+      setTheme("dark")
+    }
+  }
+
+  // Return safe values during SSR
+  if (!mounted) {
+    return {
+      isDark: false,
+      isLight: false,
+      theme: undefined,
+      toggleTheme: () => {},
+      setTheme: () => {},
+      resolvedTheme: undefined,
+    }
   }
 
   return {
-    isDark: theme === "dark",
-    isLight: theme === "light",
+    isDark: resolvedTheme === "dark",
+    isLight: resolvedTheme === "light",
     theme,
     toggleTheme,
+    setTheme,
+    resolvedTheme,
   }
 }
