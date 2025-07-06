@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { Sparkles, Star } from "lucide-react"
 import Image from "next/image"
+import { useTheme } from "@/hooks/useTheme"
 
 interface GreenIntroProps {
   onComplete?: () => void
@@ -44,6 +45,7 @@ function useTypewriter(text: string, speed = 50, delay = 0, shouldStart = true) 
 }
 
 export default function GreenIntro({ onComplete, duration = 4000 }: GreenIntroProps) {
+  const { isDark } = useTheme()
   const [loadingProgress, setLoadingProgress] = useState(0)
   const [showMainContent, setShowMainContent] = useState(false)
   const [animationsStarted, setAnimationsStarted] = useState(false)
@@ -117,7 +119,11 @@ export default function GreenIntro({ onComplete, duration = 4000 }: GreenIntroPr
       <AnimatePresence>
         {!showMainContent && (
           <motion.div
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950"
+            className={`fixed inset-0 z-50 flex flex-col items-center justify-center transition-colors duration-300 ${
+              isDark 
+                ? 'bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950' 
+                : 'bg-gradient-to-br from-green-50 via-emerald-50 to-green-100'
+            }`}
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
@@ -201,10 +207,10 @@ export default function GreenIntro({ onComplete, duration = 4000 }: GreenIntroPr
                 transition={{ duration: 0.8, delay: 0.5 }}
               >
                 <span className="text-[#3DD56D]">GREAN</span>
-                <span className="text-white ml-2">WORLD</span>
+                <span className={`ml-2 transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-800'}`}>WORLD</span>
               </motion.h1>
               <motion.p
-                className="text-gray-400 text-sm mt-2 tracking-wide"
+                className={`text-sm mt-2 tracking-wide transition-colors duration-300 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
@@ -221,7 +227,9 @@ export default function GreenIntro({ onComplete, duration = 4000 }: GreenIntroPr
               transition={{ duration: 0.8, delay: 0.9 }}
             >
               {/* Progress Bar */}
-              <div className="w-full bg-slate-800 rounded-full h-3 mb-4 overflow-hidden shadow-inner">
+              <div className={`w-full rounded-full h-3 mb-4 overflow-hidden shadow-inner transition-colors duration-300 ${
+                isDark ? 'bg-slate-800' : 'bg-gray-300'
+              }`}>
                 <motion.div
                   className="bg-gradient-to-r from-[#3DD56D] to-[#2bb757] h-3 rounded-full shadow-lg"
                   initial={{ width: "0%" }}
@@ -241,7 +249,7 @@ export default function GreenIntro({ onComplete, duration = 4000 }: GreenIntroPr
                   {loadingProgress >= 60 && loadingProgress < 90 && "Connecting Solar Panels..."}
                   {loadingProgress >= 90 && "System Ready!"}
                 </span>
-                <span className="text-gray-400 font-mono font-bold">{Math.round(loadingProgress)}%</span>
+                <span className={`font-mono font-bold transition-colors duration-300 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{Math.round(loadingProgress)}%</span>
               </div>
             </motion.div>
 
@@ -252,7 +260,9 @@ export default function GreenIntro({ onComplete, duration = 4000 }: GreenIntroPr
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1, duration: 0.8 }}
             >
-              <div className="w-32 h-20 border-2 border-[#3DD56D]/40 rounded-lg relative overflow-hidden bg-slate-900/50 backdrop-blur-sm">
+              <div className={`w-32 h-20 border-2 border-[#3DD56D]/40 rounded-lg relative overflow-hidden backdrop-blur-sm transition-colors duration-300 ${
+                isDark ? 'bg-slate-900/50' : 'bg-white/80'
+              }`}>
                 <div className="absolute inset-0 grid grid-cols-4 grid-rows-3 gap-0.5 p-1">
                   {[...Array(12)].map((_, i) => (
                     <motion.div
@@ -277,7 +287,7 @@ export default function GreenIntro({ onComplete, duration = 4000 }: GreenIntroPr
                 {/* Solar panel reflection effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none" />
               </div>
-              <p className="text-xs text-gray-500 mt-2 text-center font-mono">Solar Array Status: Active</p>
+              <p className={`text-xs mt-2 text-center font-mono transition-colors duration-300 ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>Solar Array Status: Active</p>
             </motion.div>
           </motion.div>
         )}
@@ -395,11 +405,11 @@ export default function GreenIntro({ onComplete, duration = 4000 }: GreenIntroPr
                             <span className="text-[#3DD56D] text-xl sm:text-2xl font-bold tracking-wide drop-shadow-lg">
                               GREAN
                             </span>
-                            <span className="text-xl sm:text-2xl font-bold tracking-wide ml-1 text-white drop-shadow-lg">
+                            <span className={`text-xl sm:text-2xl font-bold tracking-wide ml-1 drop-shadow-lg transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-800'}`}>
                               WORLD
                             </span>
                           </div>
-                          <p className="text-xs tracking-wide text-gray-300 drop-shadow-md">ENERGY TECHNOLOGY</p>
+                          <p className={`text-xs tracking-wide drop-shadow-md transition-colors duration-300 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>ENERGY TECHNOLOGY</p>
                         </div>
                       </div>
                     </div>
@@ -455,13 +465,13 @@ export default function GreenIntro({ onComplete, duration = 4000 }: GreenIntroPr
                 >
                   <div className="relative min-h-[1.5em] flex items-center justify-center">
                     <span
-                      style={{ textShadow: "rgba(0, 0, 0, 0.5) 0px 1px 3px" }}
-                      className="font-light tracking-wide leading-relaxed text-white"
+                      style={{ textShadow: isDark ? "rgba(0, 0, 0, 0.5) 0px 1px 3px" : "rgba(255, 255, 255, 0.8) 0px 1px 3px" }}
+                      className={`font-light tracking-wide leading-relaxed transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-800'}`}
                     >
                       {taglineAnimation.displayText}
-                      {!taglineAnimation.isComplete && (
-                        <span className="inline-block w-1 h-[0.8em] ml-1 align-middle bg-white opacity-0 animate-pulse" />
-                      )}
+                                              {!taglineAnimation.isComplete && (
+                          <span className={`inline-block w-1 h-[0.8em] ml-1 align-middle opacity-0 animate-pulse transition-colors duration-300 ${isDark ? 'bg-white' : 'bg-gray-800'}`} />
+                        )}
                     </span>
                     <div
                       className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-0.5 rounded-full bg-[#3DD56D]"

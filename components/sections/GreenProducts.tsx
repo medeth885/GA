@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useRef } from "react"
 import { motion, useInView } from "framer-motion"
+import { useTheme } from "@/hooks/useTheme"
 import {
   Search,
   Filter,
@@ -41,6 +42,7 @@ interface Product {
 }
 
 export default function GreenProducts() {
+  const { isDark } = useTheme()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
@@ -433,7 +435,11 @@ export default function GreenProducts() {
     <section
       ref={ref}
       id="green-products"
-      className="relative py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 overflow-hidden"
+      className={`relative py-20 overflow-hidden transition-colors duration-300 ${
+        isDark 
+          ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950' 
+          : 'bg-gradient-to-br from-green-50 via-emerald-50 to-green-100'
+      }`}
     >
       {/* Consistent Background Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#2bb757]/10 via-transparent to-[#23a455]/10" />

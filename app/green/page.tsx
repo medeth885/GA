@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useTheme } from "@/hooks/useTheme"
 import GreenIntro from "@/components/sections/GreenIntro"
 import GreenHome from "@/components/sections/GreenHome"
 import GreenAbout from "@/components/sections/GreenAbout"
@@ -10,6 +11,7 @@ import GreenContact from "@/components/sections/GreenContact"
 import GreenFooter from "@/components/sections/GreenFooter"
 
 export default function GreenPage() {
+  const { isDark } = useTheme()
   const [showMainContent, setShowMainContent] = useState(false)
   const [currentSection, setCurrentSection] = useState(0)
   const [ledDisplayActive, setLedDisplayActive] = useState(false)
@@ -69,7 +71,7 @@ export default function GreenPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950">
+    <main className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-slate-950' : 'bg-white'}`}>
       {/* Loading Intro */}
       <GreenIntro onComplete={handleIntroComplete} duration={4000} />
 
@@ -83,7 +85,11 @@ export default function GreenPage() {
                 key={index}
                 onClick={() => scrollToSection(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentSection === index ? "bg-[#3DD56D] scale-125" : "bg-white/30 hover:bg-white/50"
+                  currentSection === index 
+                    ? "bg-[#3DD56D] scale-125" 
+                    : isDark 
+                      ? "bg-white/30 hover:bg-white/50" 
+                      : "bg-gray-400/50 hover:bg-gray-600/70"
                 }`}
                 aria-label={`Go to ${section.name} section`}
                 title={section.name}

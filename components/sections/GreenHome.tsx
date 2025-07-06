@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Sun, Leaf, Wind, Zap, ArrowRight, BarChart3 } from "lucide-react"
+import { useTheme } from "@/hooks/useTheme"
 
 interface GreenHomeProps {
   ledDisplayActive?: boolean
 }
 
 export default function GreenHome({ ledDisplayActive = false }: GreenHomeProps) {
+  const { isDark } = useTheme()
   const [solarCells, setSolarCells] = useState(Array(16).fill(false))
 
   useEffect(() => {
@@ -82,7 +84,11 @@ export default function GreenHome({ ledDisplayActive = false }: GreenHomeProps) 
       <div className="relative z-50">
         <section
           id="green-home"
-          className="relative min-h-screen pt-20 overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950"
+          className={`relative min-h-screen pt-20 overflow-hidden transition-colors duration-300 ${
+            isDark 
+              ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950' 
+              : 'bg-gradient-to-br from-green-50 via-emerald-50 to-green-100'
+          }`}
           style={{ marginTop: "-60px" }}
         >
           {/* Background */}
@@ -129,7 +135,7 @@ export default function GreenHome({ ledDisplayActive = false }: GreenHomeProps) 
 
                 {/* Main Heading */}
                 <div className="space-y-6">
-                  <h1 className="text-6xl md:text-7xl lg:text-8xl font-black leading-none tracking-tight flex flex-col sm:flex-row items-center justify-center gap-2 text-white">
+                  <h1 className={`text-6xl md:text-7xl lg:text-8xl font-black leading-none tracking-tight flex flex-col sm:flex-row items-center justify-center gap-2 transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     <motion.span
                       className="inline-block"
                       initial={{ opacity: 0 }}
@@ -146,7 +152,7 @@ export default function GreenHome({ ledDisplayActive = false }: GreenHomeProps) 
                       Transforming <span className="text-[#2bb757] font-semibold">20 Villages</span> into Green Villages
                       by 2030.
                     </p>
-                    <p className="text-lg max-w-2xl text-gray-300">
+                    <p className={`text-lg max-w-2xl transition-colors duration-300 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                       Leading Ethiopia's energy transition with{" "}
                       <span className="font-semibold text-[#3DD56D]">
                         sustainable, reliable, and affordable innovations
@@ -179,7 +185,7 @@ export default function GreenHome({ ledDisplayActive = false }: GreenHomeProps) 
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  <span className="text-sm text-gray-400">Trusted by:</span>
+                  <span className={`text-sm transition-colors duration-300 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Trusted by:</span>
                   <div className="flex space-x-4">
                     {[Sun, Leaf, Wind, Zap].map((Icon, index) => (
                       <div
@@ -267,13 +273,15 @@ export default function GreenHome({ ledDisplayActive = false }: GreenHomeProps) 
 
                   {/* Floating Stats Cards */}
                   <motion.div
-                    className="absolute -top-4 -right-4 rounded-xl p-4 backdrop-blur-sm bg-slate-800/90 shadow-lg border-2 border-[#2bb757]/30"
+                    className={`absolute -top-4 -right-4 rounded-xl p-4 backdrop-blur-sm shadow-lg border-2 border-[#2bb757]/30 transition-colors duration-300 ${
+                      isDark ? 'bg-slate-800/90' : 'bg-white/90'
+                    }`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
                   >
                     <div className="text-3xl font-bold text-[#3dd56d]">98%</div>
-                    <div className="text-sm text-gray-300">Efficiency</div>
+                    <div className={`text-sm transition-colors duration-300 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Efficiency</div>
                     <div className="flex items-center mt-1">
                       <Zap className="h-4 w-4 mr-1 text-[#2bb757]" />
                       <span className="text-xs text-[#2bb757]">Active</span>
@@ -281,13 +289,15 @@ export default function GreenHome({ ledDisplayActive = false }: GreenHomeProps) 
                   </motion.div>
 
                   <motion.div
-                    className="absolute -bottom-4 -right-4 rounded-xl p-4 backdrop-blur-sm bg-slate-800/90 shadow-lg border-2 border-[#2bb757]/30"
+                    className={`absolute -bottom-4 -right-4 rounded-xl p-4 backdrop-blur-sm shadow-lg border-2 border-[#2bb757]/30 transition-colors duration-300 ${
+                      isDark ? 'bg-slate-800/90' : 'bg-white/90'
+                    }`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.7 }}
                   >
                     <div className="text-2xl font-bold text-[#3dd56d]">5k+</div>
-                    <div className="text-sm text-gray-300">Homes</div>
+                    <div className={`text-sm transition-colors duration-300 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Homes</div>
                     <div className="flex items-center mt-1">
                       <Leaf className="h-4 w-4 mr-1 text-[#2bb757]" />
                       <span className="text-xs text-[#2bb757]">Powered</span>

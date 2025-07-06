@@ -1,8 +1,14 @@
 import { Shield, Target, Users, Heart, Leaf, ArrowRight, Sparkles } from "lucide-react"
+import { useTheme } from "@/hooks/useTheme"
 
 const GreenAbout = () => {
+  const { isDark } = useTheme()
   return (
-    <section className="relative py-16 sm:py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 overflow-hidden">
+    <section className={`relative py-16 sm:py-24 overflow-hidden transition-colors duration-300 ${
+      isDark 
+        ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950' 
+        : 'bg-gradient-to-br from-green-50 via-emerald-50 to-green-100'
+    }`}>
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#2bb757]/10 via-transparent to-[#23a455]/10"></div>
 
@@ -14,7 +20,7 @@ const GreenAbout = () => {
             About Grean World
           </div>
           <div className="mb-4">
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-black leading-none tracking-tight flex flex-col sm:flex-row items-center justify-center gap-2 text-center text-white">
+            <h1 className={`text-6xl md:text-7xl lg:text-8xl font-black leading-none tracking-tight flex flex-col sm:flex-row items-center justify-center gap-2 text-center transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-900'}`}>
               <span className="inline-block">
                 Empowering Ethiopia's Energy Transition
                 <span className="inline-block w-1 h-4 bg-green-400 ml-1"></span>

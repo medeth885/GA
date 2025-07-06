@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState, useRef } from "react"
 import { motion, useInView } from "framer-motion"
+import { useTheme } from "@/hooks/useTheme"
 import {
   Mail,
   Phone,
@@ -30,6 +31,7 @@ interface FormErrors {
 }
 
 export default function GreenContact() {
+  const { isDark } = useTheme()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
@@ -123,7 +125,11 @@ export default function GreenContact() {
     <section
       ref={ref}
       id="green-contact"
-      className="relative w-full min-h-screen flex flex-col justify-center px-4 sm:px-6 py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950"
+      className={`relative w-full min-h-screen flex flex-col justify-center px-4 sm:px-6 py-8 sm:py-12 lg:py-16 transition-colors duration-300 ${
+        isDark 
+          ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950' 
+          : 'bg-gradient-to-br from-green-50 via-emerald-50 to-green-100'
+      }`}
     >
       {/* Consistent Background Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#2bb757]/10 via-transparent to-[#23a455]/10" />

@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import { useTheme } from "@/hooks/useTheme"
 
 // Component props type
 interface GreenFooterProps {
@@ -9,11 +10,17 @@ interface GreenFooterProps {
 }
 
 export default function GreenFooter({ noSeam = false }: GreenFooterProps) {
+  const { isDark } = useTheme()
+  
   return (
-    <footer id="green-footer" className="py-3 px-4 sm:px-6 w-full border-t border-slate-700/20 bg-slate-950">
+    <footer id="green-footer" className={`py-3 px-4 sm:px-6 w-full border-t transition-colors duration-300 ${
+      isDark 
+        ? 'border-slate-700/20 bg-slate-950' 
+        : 'border-green-200/20 bg-white'
+    }`}>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Left side - Copyright */}
-        <div className="text-sm text-slate-400">
+        <div className={`text-sm transition-colors duration-300 ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>
           © {new Date().getFullYear()} <span className="text-[#3DD56D]">GREAN</span> WORLD
         </div>
 
@@ -28,7 +35,7 @@ export default function GreenFooter({ noSeam = false }: GreenFooterProps) {
               className="object-contain"
             />
           </div>
-          <span className="text-sm text-slate-300">
+          <span className={`text-sm transition-colors duration-300 ${isDark ? 'text-slate-300' : 'text-gray-700'}`}>
             <span className="text-[#3DD56D]">#</span>PoweringDignity
           </span>
         </div>

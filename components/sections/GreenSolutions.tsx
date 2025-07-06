@@ -26,6 +26,7 @@ import {
 import { useState, useMemo, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { TypingTextAnimation } from "@/components/animations/text/TypingTextAnimation"
+import { useTheme } from "@/hooks/useTheme"
 
 // Official Brand CSS from Brand Guidelines
 const brandCSS = `
@@ -501,8 +502,8 @@ interface GreenSolutionsProps {
 export default function GreenSolutions({ noSeam = false }: GreenSolutionsProps) {
   const [activeTab, setActiveTab] = useState("overview")
   const { solutions, integratedSolutions } = useSolutionData()
-  const isDark = true // Assuming dark theme for this component
-  const isLight = false
+  const { isDark } = useTheme()
+  const isLight = !isDark
 
   // Animation states for different sections
   const mainCard = useIntersectionObserver()
@@ -523,7 +524,11 @@ export default function GreenSolutions({ noSeam = false }: GreenSolutionsProps) 
   return (
     <section
       id="green-solutions"
-      className="relative w-full flex flex-col items-center justify-center px-4 sm:px-6 py-12 sm:py-16 lg:py-20 min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950"
+      className={`relative w-full flex flex-col items-center justify-center px-4 sm:px-6 py-12 sm:py-16 lg:py-20 min-h-screen transition-colors duration-300 ${
+        isDark 
+          ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950' 
+          : 'bg-gradient-to-br from-green-50 via-emerald-50 to-green-100'
+      }`}
     >
       {/* Consistent Background Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#2bb757]/10 via-transparent to-[#23a455]/10" />
